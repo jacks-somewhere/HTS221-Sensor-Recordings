@@ -25,7 +25,9 @@ def loop():
     
     #Adds Data to the list
     ReadList.append(f'{current_time},{hts.relative_humidity:.2f},{hts.temperature:2f}')
-    print(f'{temperature:.2f}')
+    print(f'Current Time: {hour:02d}:{minute:02d}')
+    print(f'Temperature: {temperature:.2f}')
+    print(f'Relative_humidity: {relative_humidity:.2f}% rH')
 
 #Opens a File and writes the Data
 def write_file(file_name):
