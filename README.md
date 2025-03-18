@@ -15,11 +15,11 @@ Required Hardware:
 
 Step 0.5:
 In the termal write:
-  pip install --break-system-packages adafruit-blinka
+- pip install --break-system-packages adafruit-blinka
 Next write:
-  pip install --break-system-packages adafruit-circuitpython-hts221
+- pip install --break-system-packages adafruit-circuitpython-hts221
 
-# If Adafruit Blinka and/or CircuitPython ARE installed:
+# If Adafruit Blinka AND CircuitPython ARE installed:
 
 Step 1: 
 Download the HTS221_sensor.py file. Create a new file and move the file into it. The sensor output files will be located in this folder.
