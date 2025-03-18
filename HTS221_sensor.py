@@ -10,31 +10,29 @@ import adafruit_hts221
 #Sets up board and Sensor
 i2c = board.I2C()  # uses board.SCL and board.SDA
 hts = adafruit_hts221.HTS221(i2c)
-data_rate = adafruit_hts221.Rate.ONE_SHOT
+data_rate = adafruit_hts221.Rate.label[hts.data_rate]
 
-#Stores Data temporarily
 ReadList = []
 today = date.today()
 
 def loop():
-    take_measurements()
     #Gets Sensor Data and converts it to the correct formating
-    temperature = float(f'{(hts.temperature * 9/5) +32:.2f}')
-    relative_humidity = float(f'{hts.relative_humidity:.2f}')
+    temperature = ((hts.temperature * 9/5) + 32)
+    relative_humidity = hts.relative_humidity
     hour = int(time.strftime('%H'))
     minute = int(time.strftime('%M'))
     current_time = f'{hour:02d}:{minute:02d}'
     
     #Adds Data to the list
-    ReadList.append(f'{current_time},{hts.relative_humidity:.2f},{hts.temperature * 9/5: +32:.2f}')
+    ReadList.append(f'{current_time},{hts.relative_humidity:.2f},{hts.temperature:2f}')
+    print(f'{temperature:.2f}')
 
 #Opens a File and writes the Data
 def write_file(file_name):
-    #Opens file to add to it
     with open(file_name, 'a') as data_file:
-        data_file.write('\n'.join(readingslist)+'\n')
+        data_file.write('\n'.join(ReadList)+'\n')
     data_file.close()
-    readingslist.clear() #Clears the List to prevent multi entries
+    ReadList.clear()
      
 def write_file_heading(file_date, file_name):
     data_file = open(file_name,'a')
@@ -45,14 +43,14 @@ def main():
     file_name = f'hts221_{file_date}.txt'
     write_file_heading(file_date,file_name)
     #Checks the time and stops if it reaches a specific hour (military time)
-    while int(time.strftime('%H')) < 7: 
+    while int(time.strftime('%H.%M')) <= 13: 
         loop()
         write_file(file_name)
-        time.sleep(180) #Waits (blank) seconds before starting the loop again
+        time.sleep(3) #Waits (blank) seconds before starting the loop again
   
-
 if __name__ == "__main__":
 	main()
+
 
 
 
