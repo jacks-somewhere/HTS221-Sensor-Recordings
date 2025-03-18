@@ -38,7 +38,7 @@ The program will end ether by CTRL+C or the specified time found in the while lo
 
 # To Change the End Time of the Sensor
 Step 1:
-Locate the while loop on line 49.
+Locate the while loop on line 46.
 Step 2:
 Change the number at the end to one of your choising. Format your number in military time and use the format "Hour.Minute".
 
